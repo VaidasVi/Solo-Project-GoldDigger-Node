@@ -1,6 +1,8 @@
 import path from "node:path";
 import fs from "node:fs/promises";
 import { createPDF } from "./createPDF.js";
+import { sendSalesReport } from "./mailingServices.js";
+import "dotenv/config";
 
 export async function addNewpurchaseLog(formData) {
 	try {
@@ -10,6 +12,7 @@ export async function addNewpurchaseLog(formData) {
 		// Or append each order on a new line
 		await fs.appendFile(pathOrder, line, "utf-8");
 		await createPDF(formData);
+		await sendSalesReport(process.env.USER_EMAIL);
 	} catch (err) {
 		throw new Error(err);
 	}

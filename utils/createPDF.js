@@ -36,7 +36,7 @@ export async function createPDF(PDFText) {
 
 		doc.end();
 
-		await new Promises((resolve, reject) => {
+		await new Promise((resolve, reject) => {
 			stream.on("finish", resolve);
 			stream.on("error", reject);
 		});
